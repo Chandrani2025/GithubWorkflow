@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# GithubWorkflow
-=======
 # Selenium BDD (Behave) Framework — AutomationPractice
 
 This project is a robust Selenium + Python test automation framework built with:
@@ -49,4 +46,4 @@ Report locations
 - `results/allure-results/` — Allure raw results (when `ALLURE=true`)
 - `results/allure-report/` — Allure HTML (after running `generate_allure_report.sh`)
 - `results/screenshots/` — screenshots saved on scenario failures
->>>>>>> 09207ea (chore: initial commit)
+

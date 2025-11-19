@@ -19,6 +19,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+      - name: Install zsh
+        run: |
+          sudo apt-get update && sudo apt-get install -y zsh
       - name: Run tests with Behave
         run: |
           chmod +x scripts/run_behave.sh

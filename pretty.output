@@ -1,0 +1,27 @@
+Feature: Automation Practice interactions # features/automation_practice.feature:1
+  As an automation engineer
+  I want to exercise key controls on the Automation Practice page
+  Background:   # features/automation_practice.feature:5
+
+  @smoke
+  Scenario: Verify title and interact with checkbox and radio  # features/automation_practice.feature:9
+    Given I open the practice page                             # features/steps/steps_automation_practice.py:5
+    Then I select the checkbox                                 # features/steps/steps_automation_practice.py:13
+    And I select the radio option                              # features/steps/steps_automation_practice.py:19
+
+  @regression
+  Scenario Outline: Select dropdown and suggestions (data-driven) -- @1.1   # features/automation_practice.feature:22
+    Given I open the practice page                                          # features/steps/steps_automation_practice.py:5
+    When I select dropdown value "Option1"                                  # features/steps/steps_automation_practice.py:25
+    And I type suggestion "Ind"                                             # features/steps/steps_automation_practice.py:32
+    And I select second suggestion from the list                            # features/steps/steps_automation_practice.py:39
+    Then the selected dropdown should be "Option1"                          # features/steps/steps_automation_practice.py:44
+
+  @regression
+  Scenario Outline: Select dropdown and suggestions (data-driven) -- @1.2   # features/automation_practice.feature:23
+    Given I open the practice page                                          # features/steps/steps_automation_practice.py:5
+    When I select dropdown value "Option2"                                  # features/steps/steps_automation_practice.py:25
+    And I type suggestion "Australi"                                        # features/steps/steps_automation_practice.py:32
+    And I select second suggestion from the list                            # features/steps/steps_automation_practice.py:39
+    Then the selected dropdown should be "Option2"                          # features/steps/steps_automation_practice.py:44
+

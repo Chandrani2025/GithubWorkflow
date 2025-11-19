@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Run tests with Behave
+        run: |
+          chmod +x scripts/run_behave.sh
+          ./scripts/run_behave.sh
+      - name: Generate Allure HTML report
+        run: |
+          chmod +x scripts/generate_allure_report.sh
+          ./scripts/generate_allure_report.sh
+      - name: Upload results folder
+        uses: actions/upload-artifact@v3
+        with:
+          name: results
+          path: results/

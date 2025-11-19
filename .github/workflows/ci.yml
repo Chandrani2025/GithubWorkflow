@@ -28,7 +28,7 @@ jobs:
           chmod +x scripts/generate_allure_report.sh
           ./scripts/generate_allure_report.sh
       - name: Upload results folder
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: results
           path: results/

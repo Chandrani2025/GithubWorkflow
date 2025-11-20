@@ -34,13 +34,13 @@ jobs:
           echo "Using Chrome for Testing version: $LATEST"
 
           # Download Chrome
-          wget https://storage.googleapis.com/chrome-for-testing-public/$LATEST/linux64/chrome-linux64.zip
+          wget https://storage.googleapis.com/chrome-for-testing-public/142.0.7444.175/linux64/chrome-linux64.zip
           unzip chrome-linux64.zip
           sudo mv chrome-linux64 /opt/chrome
           sudo ln -s /opt/chrome/chrome /usr/bin/google-chrome
 
           # Download ChromeDriver
-          wget https://storage.googleapis.com/chrome-for-testing-public/$LATEST/linux64/chromedriver-linux64.zip
+          wget https://storage.googleapis.com/chrome-for-testing-public/142.0.7444.175/linux64/chromedriver-linux64.zip
           unzip chromedriver-linux64.zip
           sudo mv chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
           sudo chmod +x /usr/local/bin/chromedriver

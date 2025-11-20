@@ -8,28 +8,51 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
-      - name: Install dependencies
+
+      - name: Install dependencies for ChromeDriver script
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq unzip
+
+      - name: Install Google Chrome
+        run: |
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo apt install -y ./google-chrome-stable_current_amd64.deb
+      
+      - name: Install ChromeDriver
+        run: |
+          CHROME_VERSION=$(google-chrome --version | sed 's/Google Chrome //')
+          DRIVER_URL=$(curl -s "https://googlechromelabs.github.io/chrome-for-testing/known-good-versions-with-downloads.json" | \
+              jq -r --arg ver "$CHROME_VERSION" '.versions[] | select(.version==$ver) | .downloads.chromedriver[0].url')
+          wget $DRIVER_URL -O chromedriver.zip
+          unzip chromedriver.zip -d /usr/local/bin/
+          chmod +x /usr/local/bin/chromedriver
+
+      - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      - name: Install zsh
-        run: |
-          sudo apt-get update && sudo apt-get install -y zsh
+          pip install allure-behave
+
       - name: Run tests with Behave
         run: |
           chmod +x scripts/run_behave.sh
           ./scripts/run_behave.sh
+
       - name: Generate Allure HTML report
         run: |
           chmod +x scripts/generate_allure_report.sh
           ./scripts/generate_allure_report.sh
+
       - name: Upload results folder
         uses: actions/upload-artifact@v4
         with:
